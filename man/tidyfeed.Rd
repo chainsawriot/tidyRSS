@@ -19,7 +19,7 @@ e.g. "http://journal.r-project.org/rss.atom".}
 \item{config}{Arguments passed off to \code{httr::GET()}.}
 
 \item{clean_tags}{\code{logical}, default \code{TRUE}.
-Cleans columns of HTML tags.}
+Cleans columns of HTML tags. See notes.}
 
 \item{list}{\code{logical}, default \code{FALSE}.
 Return metadata and content as separate dataframes in a named list.}
@@ -39,6 +39,8 @@ dates. This can fail, as can be seen
 \href{https://github.com/RobertMyles/tidyRSS/issues/37}{here}. If you need
 lower-level control over the parsing of dates, it's better to leave
 \code{parse_dates} equal to \code{FALSE} and then parse these yourself.
+Cleaning HTML tags is \code{TRUE} by default to avoid issues with the
+\code{item_description} column.
 }
 \examples{
 \dontrun{

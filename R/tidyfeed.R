@@ -23,7 +23,7 @@
 #' e.g. "http://journal.r-project.org/rss.atom".
 #' @param config Arguments passed off to \code{httr::GET()}.
 #' @param clean_tags \code{logical}, default \code{TRUE}.
-#' Cleans columns of HTML tags.
+#' Cleans columns of HTML tags. See notes.
 #' @param list \code{logical}, default \code{FALSE}.
 #' Return metadata and content as separate dataframes in a named list.
 #' @param parse_dates \code{logical}, default \code{TRUE}.
@@ -34,6 +34,8 @@
 #' \href{https://github.com/RobertMyles/tidyRSS/issues/37}{here}. If you need
 #' lower-level control over the parsing of dates, it's better to leave
 #' \code{parse_dates} equal to \code{FALSE} and then parse these yourself.
+#' Cleaning HTML tags is \code{TRUE} by default to avoid issues with the
+#' \code{item_description} column.
 #' @seealso \link[httr:GET]{GET()}
 #' @examples
 #' \dontrun{

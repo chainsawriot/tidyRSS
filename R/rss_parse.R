@@ -38,8 +38,6 @@ rss_parse <- function(response, list, clean_tags, parse_dates) {
   entries <- tibble(
     item_title = map(res_entry, "title", .default = def) %>% unlist(),
     item_link = map(res_entry, "link", .default = def) %>% unlist(),
-    item_description = map(res_entry, "description", .default = def) %>%
-      unlist(),
     item_pub_date = map(res_entry, "pubDate", .default = def) %>% unlist(),
     item_guid = map(res_entry, "guid", .default = def) %>% unlist(),
     item_author = map(res_entry, "author", .default = def),
@@ -48,6 +46,20 @@ rss_parse <- function(response, list, clean_tags, parse_dates) {
     }),
     item_comments = map(res_entry, "comments", .default = def) %>% unlist()
   )
+  # item description
+  if (clean_tags) {
+    entries$item_description <- map(
+      res_entry, "description", .default = def
+      ) %>%
+      map(cleanFun) %>%
+      # fix for #53
+      map(~purrr::discard(.x, .p = ~ nchar(.x) == 0)) %>%
+      unlist()
+  } else {
+    entries$item_description <- map(
+      res_entry, "description", .default = def
+    ) %>% unlist()
+  }
 
   # clean up
   meta <- clean_up(meta, "rss", clean_tags, parse_dates)
